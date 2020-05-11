@@ -254,7 +254,7 @@ namespace Cold_Clear_SF
                 Thread.Sleep(500);
                 int nowb = nexttab.Dequeue();
                 int limit = 0;
-                while (!coldclearcore.cc_poll_next_move(ptrBot, ptrmove) && limit < 40)
+                while (coldclearcore.cc_poll_next_move(ptrBot, ptrmove) != 0 && limit < 40)
                 {
                     Thread.Sleep(100);
                     limit++;
@@ -379,7 +379,7 @@ namespace Cold_Clear_SF
                 foreach (string key in ConfigurationManager.AppSettings.AllKeys)
                 {
                     if (key == "tslot" || key == "well_column" || key == "min_nodes" || key == "use_hold"
-                        || key == "mode" || key == "use_bag" || key == "threads")
+                        || key == "mode" || key == "use_bag" || key == "threads" || key == "pcloop")
                     {
                         continue;
                     }
@@ -396,6 +396,7 @@ namespace Cold_Clear_SF
                 }
                 Configuration config = System.Configuration.ConfigurationManager.OpenExeConfiguration("Cold Clear SF.exe");
                 cCOptions.min_nodes = ulong.Parse( config.AppSettings.Settings["min_nodes"].Value);
+                cCOptions.pcloop = (char)(char.Parse(config.AppSettings.Settings["pcloop"].Value) - '0');
                 //cCOptions.threads = ulong.Parse(config.AppSettings.Settings["threads"].Value);
                 cCOptions.mode = (CCMovementMode)Enum.Parse(typeof(CCMovementMode),  "CC_" + config.AppSettings.Settings["mode"].Value);
                 cCOptions.use_hold = (char)(char.Parse(config.AppSettings.Settings["use_hold"].Value) - '0');
@@ -506,7 +507,7 @@ namespace Cold_Clear_SF
                 Thread.Sleep(500);
                 int limit = 0;
                 int nowb = nexttab.Dequeue();
-                while (!coldclearcore.cc_poll_next_move(ptrBot, ptrmove) && limit < 40)
+                while (coldclearcore.cc_poll_next_move(ptrBot, ptrmove) != 0 && limit < 40)
                 {
                     Thread.Sleep(100);
                     limit++;

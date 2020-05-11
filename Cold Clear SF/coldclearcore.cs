@@ -113,6 +113,7 @@ namespace Cold_Clear_SF
         public char use_hold;
         //public char use_hold1;
         public char speculate;
+        public char pcloop;
         //public char speculate1;
         public UInt64 min_nodes;
         public UInt64 max_nodes;
@@ -135,7 +136,7 @@ namespace Cold_Clear_SF
         [DllImport("cold_clear.dll")]
         public static extern void cc_request_next_move(IntPtr bot, UInt32 incoming);
         [DllImport("cold_clear.dll")]
-        public static extern bool cc_poll_next_move(IntPtr bot, IntPtr move);
+        public static extern int cc_poll_next_move(IntPtr bot, IntPtr move);
         [DllImport("cold_clear.dll")]
         public static extern bool cc_is_dead_async(IntPtr bot);
         [DllImport("cold_clear.dll")]
